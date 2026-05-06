@@ -1,29 +1,38 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PriceBreakdown extends StatelessWidget {
-  const PriceBreakdown({super.key});
+  final num price;
+  final num guests;
+
+  const PriceBreakdown({super.key, required this.price, required this.guests});
 
   @override
   Widget build(BuildContext context) {
+    final total = price * guests;
+
     return AppCard(
       child: Column(
-        children: const [
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Price per person"), Text("\$120")],
+            children: [Text("booking_price_per_person".tr()), Text("\$$price")],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Number of guests"), Text("×2")],
+            children: [Text("booking_num_guests".tr()), Text("×$guests")],
           ),
-          Divider(height: 30),
+          const Divider(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Total", style: TextStyle(fontWeight: FontWeight.bold)),
-              Text("\$240"),
+              Text(
+                "booking_total".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text("\$$total"),
             ],
           ),
         ],

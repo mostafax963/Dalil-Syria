@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 class Heder extends StatelessWidget {
   final String section_name;
   final String second_name;
-  Heder({super.key, required this.section_name, required this.second_name});
+  final IconData icon_name;
+  final VoidCallback? onTap;
+
+  Heder({
+    super.key,
+    required this.section_name,
+    required this.second_name,
+    required this.icon_name,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +32,8 @@ class Heder extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back, size: 25, color: Colors.white),
+                onPressed: onTap,
+                icon: Icon(icon_name, size: 25, color: Colors.white),
               ),
               SizedBox(width: 10),
               Text(

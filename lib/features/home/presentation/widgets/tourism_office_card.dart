@@ -1,17 +1,22 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TourismOfficeCard extends StatelessWidget {
   final String name;
-  final String rating;
+  final int reviews_count;
+  final double rating;
   final int index;
   final VoidCallback? onTap;
+  final String imageUrl;
   const TourismOfficeCard({
     super.key,
     required this.name,
-    required this.rating,
+    required this.reviews_count,
     required this.index,
     this.onTap,
+    required this.imageUrl,
+    required this.rating,
   });
 
   @override
@@ -38,11 +43,45 @@ class TourismOfficeCard extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
-                child: Image.asset(
-                  'images/imag 1.jpg',
-                  height: 100,
-                  width: 160,
-                  fit: BoxFit.cover,
+                child: Stack(
+                  alignment: AlignmentGeometry.topRight,
+                  children: [
+                    Image.network(
+                      imageUrl,
+                      height: 100,
+                      width: 160,
+                      fit: BoxFit.cover,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 50,
+                        height: 20,
+
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.star_sharp,
+                              color: Colors.yellow,
+                              size: 15,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              rating.toString(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -58,8 +97,8 @@ class TourismOfficeCard extends StatelessWidget {
                       ),
                       maxLines: 1,
                     ),
-                    const Text(
-                      "245 reviews",
+                    Text(
+                      "$reviews_count ${"office_reviews".tr()}",
                       style: TextStyle(color: Colors.grey, fontSize: 10),
                     ),
                   ],

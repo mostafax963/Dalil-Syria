@@ -1,19 +1,25 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedTripTile extends StatelessWidget {
-  final String title, location, price, days;
+  final String title, location, price;
   final int index;
   final VoidCallback? onTap;
-
+  final String imageUrl;
+  final int duration_nights;
+  final int duration_days;
   const RecommendedTripTile({
     super.key,
     required this.title,
     required this.location,
     required this.price,
-    required this.days,
+
     required this.index,
-    this.onTap, // 👈
+    this.onTap,
+    required this.imageUrl,
+    required this.duration_nights,
+    required this.duration_days,
   });
 
   @override
@@ -39,8 +45,8 @@ class RecommendedTripTile extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'images/imag 1.jpg',
+                child: Image.network(
+                  imageUrl,
                   width: 90,
                   height: 90,
                   fit: BoxFit.cover,
@@ -84,7 +90,7 @@ class RecommendedTripTile extends StatelessWidget {
                           color: Color(0xFF0D6EFD),
                         ),
                         Text(
-                          " $days",
+                          " $duration_days ${"Days".tr()}, $duration_nights ${"Nights".tr()}",
                           style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 12,

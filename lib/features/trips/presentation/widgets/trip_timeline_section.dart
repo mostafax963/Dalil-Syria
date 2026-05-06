@@ -1,34 +1,35 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:dalil_syria/features/trips/data/models/trip_timeline_model.dart';
 import 'package:dalil_syria/features/trips/presentation/widgets/trip_timeline_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TripTimelineSection extends StatelessWidget {
-  const TripTimelineSection({super.key});
+  final List<TripTimelineModel> timeline;
+
+  const TripTimelineSection({super.key, required this.timeline});
 
   @override
   Widget build(BuildContext context) {
+    if (timeline.isEmpty) {
+      return Text("trip_no_timeline".tr());
+    }
+
     return AppCard(
-      title: "Trip Timeline",
+      title: "trip_timeline".tr(),
       child: Column(
-        children: const [
-          TripTimelineItem(
-            day: "Day 1",
-            title: "Arrival & Temple of Bel",
-            desc: "Welcome to Palmyra...",
-            isFirst: true,
-          ),
-          TripTimelineItem(
-            day: "Day 2",
-            title: "Valley of the Tombs",
-            desc: "Visit the tombs...",
-          ),
-          TripTimelineItem(
-            day: "Day 3",
-            title: "Museum",
-            desc: "Explore artifacts",
-            isLast: true,
-          ),
-        ],
+        children: timeline.asMap().entries.map((entry) {
+          final index = entry.key;
+          final item = entry.value;
+
+          return TripTimelineItem(
+            day: "${"day".tr()} ${item.day}",
+            title: item.title,
+            desc: item.description,
+            isFirst: index == 0,
+            isLast: index == timeline.length - 1,
+          );
+        }).toList(),
       ),
     );
   }

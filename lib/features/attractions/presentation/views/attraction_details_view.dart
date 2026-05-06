@@ -1,52 +1,66 @@
+import 'package:dalil_syria/features/attractions/presentation/PROVIDERS/attraction_provider.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/about_section.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/attraction_image_header.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/available_tours_section.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/highlights_section.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/info_quick_grid.dart';
-import 'package:dalil_syria/features/trips/presentation/views/trip_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AttractionDetailsView extends StatelessWidget {
-  const AttractionDetailsView({super.key});
+class AttractionDetailsView extends ConsumerWidget {
+  final String id;
+
+  const AttractionDetailsView({super.key, required this.id});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncData = ref.watch(attractionDetailsProvider(id));
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AttractionImageHeader(),
+      body: asyncData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
 
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const InfoQuickGrid(),
-                  const SizedBox(height: 25),
+        error: (e, _) => Center(child: Text("Error")),
 
-                  const AboutSection(),
-                  const SizedBox(height: 25),
+        data: (data) {
+          final attraction = data['attraction'];
+          final highlights = data['highlights'];
+          final trips = data['trips'];
 
-                  const HighlightsSection(),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                AttractionImageHeader(
+                  image: attraction.image,
+                  title: attraction.title,
+                  location: attraction.location,
+                ),
 
-                  const SizedBox(height: 30),
-                  AvailableToursSection(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TripDetailsView(),
-                        ),
-                      );
-                    },
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      InfoQuickGrid(
+                        duration: attraction.visitDuration,
+                        bestTime: attraction.bestTime,
+                      ),
+                      SizedBox(height: 10),
+
+                      AboutSection(description: attraction.description),
+                      SizedBox(height: 10),
+
+                      HighlightsSection(highlights: highlights),
+
+                      const SizedBox(height: 20),
+
+                      AvailableToursSection(trips: trips),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

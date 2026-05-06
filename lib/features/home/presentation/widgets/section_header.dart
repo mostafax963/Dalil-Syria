@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SectionHeader extends StatelessWidget {
@@ -19,8 +20,8 @@ class SectionHeader extends StatelessWidget {
           ),
           TextButton(
             onPressed: onSeeAll,
-            child: const Text(
-              "See All",
+            child: Text(
+              "home_see_all".tr(),
               style: TextStyle(color: Color(0xFF0D6EFD)),
             ),
           ),

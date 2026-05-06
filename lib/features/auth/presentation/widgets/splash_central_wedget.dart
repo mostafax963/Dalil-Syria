@@ -1,4 +1,5 @@
 import 'package:dalil_syria/features/auth/presentation/widgets/three_bounce_dots.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SplashCentralWidget extends StatefulWidget {
@@ -59,8 +60,8 @@ class _SplashCentralWidgetState extends State<SplashCentralWidget>
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            'SyriTour',
+          Text(
+            'app_name'.tr(),
             style: TextStyle(
               color: Colors.white,
               fontSize: 32,
@@ -68,8 +69,8 @@ class _SplashCentralWidgetState extends State<SplashCentralWidget>
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            "Explore Syria's Beauty",
+          Text(
+            "Explore Syria's Beauty".tr(),
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           const SizedBox(height: 30),

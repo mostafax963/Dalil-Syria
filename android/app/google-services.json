@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705472924416",
+    "project_id": "dalil-syria-1a31a",
+    "storage_bucket": "dalil-syria-1a31a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705472924416:android:2af05a8adfee2fded101e5",
+        "android_client_info": {
+          "package_name": "com.example.dalil_syria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAofi1A3O5VxNg0_4jgQtSRQR8s-w2aX6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

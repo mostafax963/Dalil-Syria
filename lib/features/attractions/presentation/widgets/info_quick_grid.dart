@@ -1,25 +1,43 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class InfoQuickGrid extends StatelessWidget {
-  const InfoQuickGrid({super.key});
+  final String duration;
+  final String bestTime;
+  const InfoQuickGrid({
+    super.key,
+    required this.duration,
+    required this.bestTime,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _buildInfoBox(Icons.access_time, "Visit Duration", "4-6 hours"),
+        _buildInfoBox(
+          Icons.access_time,
+          "Visit Duration".tr(),
+          duration,
+          context,
+        ),
         const SizedBox(width: 15),
-        _buildInfoBox(Icons.star_border, "Best Time", "Spring/Fall"),
+        _buildInfoBox(
+          Icons.star_border,
+          "Best Time to Visit".tr(),
+          bestTime,
+          context,
+        ),
       ],
     );
   }
 
-  Widget _buildInfoBox(IconData icon, String title, String value) {
+  Widget _buildInfoBox(IconData icon, String title, String value, context) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: const Color(0xFFF7F8FA),
+          color: AppColors.card(context),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(

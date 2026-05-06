@@ -1,3 +1,4 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SocialLoginButton extends StatelessWidget {
@@ -43,8 +44,8 @@ class SocialLoginButton extends StatelessWidget {
               child: Text(
                 text,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  color: AppColors.textPrimary(context),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

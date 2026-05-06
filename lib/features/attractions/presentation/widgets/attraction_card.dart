@@ -1,3 +1,4 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AttractionCard extends StatelessWidget {
@@ -23,7 +24,7 @@ class AttractionCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.card(context),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -42,7 +43,7 @@ class AttractionCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     imagePath,
                     height: 180,
                     width: double.infinity,
@@ -90,7 +91,12 @@ class AttractionCard extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Text(
                 description,
-                style: const TextStyle(color: Color(0xFF7D848D), fontSize: 13),
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? const Color(0xFFB0B3B8)
+                      : const Color(0xFF7D848D),
+                  fontSize: 13,
+                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

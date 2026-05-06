@@ -1,9 +1,13 @@
-import 'package:dalil_syria/core/shered/widgets/app_card.dart';
-import 'package:dalil_syria/features/booking/presentation/widgets/summary_row.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:dalil_syria/features/booking/presentation/widgets/summary_row.dart';
+
 class TripSummaryCard extends StatelessWidget {
-  const TripSummaryCard({super.key});
+  final dynamic trip;
+  const TripSummaryCard({Key? key, required this.trip}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +15,14 @@ class TripSummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Trip Summary",
+          Text(
+            "Trip Summary".tr(),
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 15),
-          SummaryRow(label: "Ancient Palmyra Expedition", value: "\$120"),
+          SummaryRow(label: trip.title, value: "\$${trip.price}"),
           const Divider(height: 25),
-          SummaryRow(label: "Duration", value: "3 Days"),
+          SummaryRow(label: "Duration".tr(), value: "${trip.duration_days}"),
         ],
       ),
     );

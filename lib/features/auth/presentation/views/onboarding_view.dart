@@ -1,39 +1,40 @@
+import 'package:dalil_syria/core/providers/app_providers.dart';
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:dalil_syria/features/auth/presentation/views/login_view.dart';
 import 'package:dalil_syria/features/auth/presentation/widgets/onboarding_content.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/shered/widgets/custom_button.dart';
 
-class OnboardingView extends StatefulWidget {
+class OnboardingView extends ConsumerStatefulWidget {
   const OnboardingView({super.key});
 
   @override
-  State<OnboardingView> createState() => _OnboardingViewState();
+  ConsumerState<OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnboardingViewState extends State<OnboardingView> {
+class _OnboardingViewState extends ConsumerState<OnboardingView> {
   final PageController _pageController = PageController();
   double _currentPage = 0;
 
   final List<Map<String, String>> onboardingData = [
     {
-      "title": "Discover Syria",
-      "description":
-          "Explore ancient cities, beautiful landscapes, and rich cultural heritage",
-      "image": "images/imag 1.jpg",
+      "title": "onboarding_title_1".tr(),
+      "description": "onboarding_desc_1".tr(),
+      "image": "images/o1.jpeg",
       "icon": "explore",
     },
     {
-      "title": "Book Your Trip",
-      "description":
-          "Easy booking process with trusted tourism offices and flexible dates",
-      "image": "images/imag 1.jpg",
+      "title": "onboarding_title_2".tr(),
+      "description": "onboarding_desc_2".tr(),
+      "image": "images/o2.jpeg",
       "icon": "calendar_month",
     },
     {
-      "title": "Navigate with Ease",
-      "description":
-          "Interactive maps and detailed guides to help you explore every corner",
-      "image": "images/imag 1.jpg",
+      "title": "onboarding_title_3".tr(),
+      "description": "onboarding_desc_3".tr(),
+      "image": "images/o3.jpeg",
       "icon": "location_on",
     },
   ];
@@ -51,20 +52,21 @@ class _OnboardingViewState extends State<OnboardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background(context),
         elevation: 0,
         actions: [
           TextButton(
             onPressed: () {
+              ref.read(sessionServiceProvider).completeOnboarding();
+
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => LoginView()),
+                MaterialPageRoute(builder: (_) => const LoginView()),
               );
             },
-            child: const Text(
-              "Skip",
+            child: Text(
+              "onboarding_skip".tr(),
               style: TextStyle(color: Colors.grey, fontSize: 16),
             ),
           ),
@@ -114,8 +116,8 @@ class _OnboardingViewState extends State<OnboardingView> {
 
             CustomButton(
               text: _currentPage.round() == onboardingData.length - 1
-                  ? "Get Started >"
-                  : "Next >",
+                  ? "onboarding_get_started".tr()
+                  : "onboarding_next".tr(),
               onPressed: () {
                 if (_currentPage < onboardingData.length - 1) {
                   _pageController.nextPage(
@@ -123,9 +125,11 @@ class _OnboardingViewState extends State<OnboardingView> {
                     curve: Curves.easeInOut,
                   );
                 } else {
+                  ref.read(sessionServiceProvider).completeOnboarding();
+
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginView()),
+                    MaterialPageRoute(builder: (_) => const LoginView()),
                   );
                 }
               },

@@ -1,7 +1,9 @@
+import 'package:dalil_syria/features/trips/data/models/trip_details_model.dart';
 import 'package:flutter/material.dart';
 
 class TripHeader extends StatelessWidget {
-  const TripHeader({super.key});
+  final TripDetailsModel trip;
+  const TripHeader({super.key, required this.trip});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +13,13 @@ class TripHeader extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Text(
-                "Ancient Palmyra Expedition",
+                trip.title,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -26,7 +28,7 @@ class TripHeader extends StatelessWidget {
               ),
             ),
             Text(
-              "\$120",
+              "\$${trip.price}",
               style: TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -40,7 +42,7 @@ class TripHeader extends StatelessWidget {
           children: [
             Icon(Icons.location_on_outlined, size: 16, color: textColor),
             SizedBox(width: 4),
-            Text("Palmyra, Homs", style: TextStyle(color: textColor)),
+            Text("${trip.location}", style: TextStyle(color: textColor)),
           ],
         ),
       ],

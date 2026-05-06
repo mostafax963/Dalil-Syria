@@ -1,7 +1,9 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OfficeHeader extends StatelessWidget {
-  const OfficeHeader({super.key});
+  final String imageUrl;
+  const OfficeHeader({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,8 @@ class OfficeHeader extends StatelessWidget {
             bottomLeft: Radius.circular(35),
             bottomRight: Radius.circular(35),
           ),
-          child: Image.asset(
-            'images/imag 1.jpg',
+          child: Image.network(
+            imageUrl,
             height: 340,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -25,9 +27,12 @@ class OfficeHeader extends StatelessWidget {
           left: 20,
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: const CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(Icons.arrow_back, color: Colors.black),
+            child: CircleAvatar(
+              backgroundColor: AppColors.card(context),
+              child: Icon(
+                Icons.arrow_back,
+                color: AppColors.textPrimary(context),
+              ),
             ),
           ),
         ),

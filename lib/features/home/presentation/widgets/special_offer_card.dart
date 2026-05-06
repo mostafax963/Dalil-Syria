@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SpecialOfferCard extends StatelessWidget {
-  const SpecialOfferCard({super.key});
+  final String imageUrl;
+  final String title;
+  final String description;
+  const SpecialOfferCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +18,8 @@ class SpecialOfferCard extends StatelessWidget {
       height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        image: const DecorationImage(
-          image: AssetImage("images/imag 1.jpg"),
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
           fit: BoxFit.cover,
         ),
       ),
@@ -27,16 +35,16 @@ class SpecialOfferCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Summer Sale",
+            Text(
+              title,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              "Get up to 30% off on all trips",
+            Text(
+              description,
               style: TextStyle(color: Colors.white, fontSize: 14),
             ),
             const SizedBox(height: 10),

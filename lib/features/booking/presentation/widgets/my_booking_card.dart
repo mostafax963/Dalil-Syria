@@ -1,3 +1,5 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MyBookingCard extends StatelessWidget {
@@ -22,7 +24,7 @@ class MyBookingCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.card(context),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -38,7 +40,7 @@ class MyBookingCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 width: 90,
                 height: 90,
@@ -61,7 +63,7 @@ class MyBookingCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      status,
+                      status.tr(),
                       style: const TextStyle(
                         color: primaryColor,
                         fontSize: 10,
@@ -73,10 +75,10 @@ class MyBookingCard extends StatelessWidget {
 
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B1E28),
+                      color: AppColors.textPrimary(context),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

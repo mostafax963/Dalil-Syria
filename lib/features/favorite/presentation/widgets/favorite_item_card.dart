@@ -1,3 +1,4 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteItemCard extends StatelessWidget {
@@ -27,7 +28,7 @@ class FavoriteItemCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.card(context),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -48,7 +49,7 @@ class FavoriteItemCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
+                    child: Image.network(
                       imagePath,
                       width: 90,
                       height: 90,
@@ -63,10 +64,10 @@ class FavoriteItemCard extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B1E28),
+                            color: AppColors.textPrimary(context),
                           ),
                         ),
                         const SizedBox(height: 5),

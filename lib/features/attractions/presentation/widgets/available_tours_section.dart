@@ -1,85 +1,67 @@
-// 5. قسم المكاتب السياحية المتوفرة
+import 'package:dalil_syria/features/trips/presentation/views/trip_details_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AvailableToursSection extends StatelessWidget {
-  final VoidCallback? onTap;
+  final List trips;
 
-  const AvailableToursSection({super.key, this.onTap});
+  const AvailableToursSection({super.key, required this.trips});
 
   @override
   Widget build(BuildContext context) {
+    if (trips.isEmpty) {
+      return Text("attractions_no_trips".tr());
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Available Tours",
+        Text(
+          "Available Tours".tr(),
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
+
         const SizedBox(height: 15),
 
-        InkWell(
-          onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
-            ),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    'images/imag 1.jpg',
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
+        Column(
+          children: trips.map((trip) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TripDetailsView(tripId: trip.id),
                   ),
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),
-                const SizedBox(width: 15),
+                child: Row(
+                  children: [
+                    Image.network(trip.image, width: 80, height: 80),
 
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Ancient Palmyra...",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const Text(
-                        "by Damascus Heritage Tours",
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "3 Days",
-                            style: TextStyle(
-                              color: Color(0xFF0D6EFD),
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            "\$120",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF0D6EFD),
-                            ),
-                          ),
+                    const SizedBox(width: 10),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(trip.title),
+                          Text("${trip.duration_days} ${"Days".tr()}"),
+                          Text("\$${trip.price}"),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          }).toList(),
         ),
       ],
     );

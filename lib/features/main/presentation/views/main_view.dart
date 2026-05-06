@@ -1,6 +1,8 @@
 import 'package:dalil_syria/features/attractions/presentation/views/attractions_view.dart';
+import 'package:dalil_syria/features/booking/presentation/views/my_bookings_view.dart';
 import 'package:dalil_syria/features/favorite/presentation/views/favorites_view.dart';
 import 'package:dalil_syria/features/profile/presentation/views/profile_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../home/presentation/views/home_view.dart';
 
@@ -17,7 +19,7 @@ class _MainViewState extends State<MainView> {
   final List<Widget> _pages = [
     const HomeView(),
     const AttractionsView(),
-    const Center(child: Text("Map Page")),
+    const MyBookingsView(),
     const FavoritesView(),
     const ProfileView(),
   ];
@@ -39,31 +41,31 @@ class _MainViewState extends State<MainView> {
         selectedItemColor: const Color(0xFF0D6EFD),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home),
-            label: "Home",
+            label: "nav_home".tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.explore_outlined),
             activeIcon: Icon(Icons.explore),
-            label: "Attractions",
+            label: "nav_attractions".tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
-            activeIcon: Icon(Icons.map),
-            label: "Map",
+            icon: Icon(Icons.date_range),
+            activeIcon: Icon(Icons.date_range_outlined),
+            label: "nav_bookings".tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline),
             activeIcon: Icon(Icons.favorite),
-            label: "Favorites",
+            label: "nav_favorites".tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             activeIcon: Icon(Icons.person),
-            label: "Profile",
+            label: "nav_profile".tr(),
           ),
         ],
       ),

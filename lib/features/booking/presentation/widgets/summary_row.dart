@@ -9,7 +9,7 @@ class SummaryRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [Text(label), Text(value)],
+      children: [Text(label), Text(value.toString())],
     );
   }
 }

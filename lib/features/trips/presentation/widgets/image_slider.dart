@@ -1,8 +1,14 @@
+import 'package:dalil_syria/features/favorite/presentation/provider/favorites_provider.dart';
+import 'package:dalil_syria/features/trips/presentation/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({super.key});
+  final List<String> images;
+  final String tripId;
+
+  const ImageSlider({super.key, required this.images, required this.tripId});
 
   @override
   State<ImageSlider> createState() => _ImageSliderState();
@@ -14,31 +20,30 @@ class _ImageSliderState extends State<ImageSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> imgList = [
-      'images/imag 1.jpg',
-      'images/imag 1.jpg',
-      'images/imag 1.jpg',
-    ];
+    final images = widget.images.isEmpty
+        ? ["https://via.placeholder.com/400x300?text=No+Image"]
+        : widget.images;
 
     return Stack(
       children: [
         CarouselSlider(
-          items: imgList
-              .map(
-                (item) => Image.asset(
-                  item,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-              )
-              .toList(),
+          items: images.map((item) {
+            return Image.network(
+              item,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              errorBuilder: (context, error, stackTrace) {
+                return const Center(child: Icon(Icons.broken_image, size: 50));
+              },
+            );
+          }).toList(),
+
           carouselController: _controller,
+
           options: CarouselOptions(
             height: 380,
             viewportFraction: 1.0,
-            autoPlay: true,
-            autoPlayCurve: Curves.easeInOutBack,
-            autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+            autoPlay: images.length > 1,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
@@ -58,27 +63,42 @@ class _ImageSliderState extends State<ImageSlider> {
                 Icons.arrow_back,
                 () => Navigator.pop(context),
               ),
+              Consumer(
+                builder: (context, ref, _) {
+                  final favs = ref.watch(favoritesProvider);
+                  final isFav = favs.contains(widget.tripId);
 
-              _buildOverlayActionButton(Icons.favorite_border, () {}),
-            ],
-          ),
-        ),
-
-        Positioned(
-          top: 180,
-          left: 10,
-          right: 10,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildNavArrow(
-                Icons.chevron_left,
-                () => _controller.previousPage(),
+                  return FavoriteButton(
+                    isFav: isFav,
+                    onTap: () => ref
+                        .read(favoritesProvider.notifier)
+                        .toggle(widget.tripId),
+                  );
+                },
               ),
-              _buildNavArrow(Icons.chevron_right, () => _controller.nextPage()),
             ],
           ),
         ),
+
+        if (images.length > 1)
+          Positioned(
+            top: 180,
+            left: 10,
+            right: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildNavArrow(
+                  Icons.chevron_left,
+                  () => _controller.previousPage(),
+                ),
+                _buildNavArrow(
+                  Icons.chevron_right,
+                  () => _controller.nextPage(),
+                ),
+              ],
+            ),
+          ),
 
         Positioned(
           bottom: 20,
@@ -86,17 +106,20 @@ class _ImageSliderState extends State<ImageSlider> {
           right: 0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.asMap().entries.map((entry) {
+            children: images.asMap().entries.map((entry) {
+              final index = entry.key;
+
               return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: _currentIndex == entry.key ? 24.0 : 8.0,
-                  height: 8.0,
-                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                onTap: () => _controller.animateToPage(index),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: _currentIndex == index ? 20 : 8,
+                  height: 8,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white.withOpacity(
-                      _currentIndex == entry.key ? 0.9 : 0.4,
+                      _currentIndex == index ? 0.9 : 0.4,
                     ),
                   ),
                 ),
@@ -114,7 +137,7 @@ class _ImageSliderState extends State<ImageSlider> {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black.withOpacity(0.3),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 22),

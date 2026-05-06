@@ -1,41 +1,43 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HighlightsSection extends StatelessWidget {
-  const HighlightsSection({super.key});
+  final List highlights;
+
+  const HighlightsSection({super.key, required this.highlights});
 
   @override
   Widget build(BuildContext context) {
-    final highlights = [
-      "Temple of Bel",
-      "Great Colonnade",
-      "Theatre",
-      "Valley of the Tombs",
-      "Arab Castle",
-      "Palmyra Museum",
-    ];
+    if (highlights.isEmpty) {
+      return Text("attractions_no_highlights".tr());
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Highlights",
+        Text(
+          "Highlights".tr(),
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 15),
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: highlights.map((h) => _buildChip(h)).toList(),
+          children: highlights
+              .map((h) => _buildChip(h.title, context))
+              .toList(),
         ),
       ],
     );
   }
 
-  Widget _buildChip(String label) {
+  Widget _buildChip(String label, context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        color: AppColors.card(context),
+        border: Border.all(color: AppColors.card(context)),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

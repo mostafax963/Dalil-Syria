@@ -1,7 +1,15 @@
+import 'package:dalil_syria/core/providers/language_provider.dart';
+import 'package:dalil_syria/core/providers/notification_toggle_provider.dart';
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:dalil_syria/core/theme/theme_provider.dart';
+
+import 'package:dalil_syria/features/booking/presentation/views/my_bookings_view.dart';
+
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_item.dart';
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_switch.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsSection extends StatelessWidget {
   const SettingsSection({super.key});
@@ -13,37 +21,108 @@ class SettingsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            "profile_settings".tr(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
 
           const SizedBox(height: 15),
 
-          SettingsSwitch(
-            title: "Notifications",
-            icon: Icons.notifications_none_outlined,
-            value: true,
+          Consumer(
+            builder: (context, ref, _) {
+              final isEnabled = ref.watch(notificationToggleProvider);
+
+              return SettingsSwitch(
+                title: "profile_notifications".tr(),
+                icon: Icons.notifications_none_outlined,
+                value: isEnabled,
+                onChanged: (value) {
+                  ref.read(notificationToggleProvider.notifier).toggle(value);
+                },
+              );
+            },
           ),
 
-          SettingsSwitch(
-            title: "Dark Mode",
-            icon: Icons.dark_mode_outlined,
-            value: false,
+          Consumer(
+            builder: (context, ref, _) {
+              final themeMode = ref.watch(themeProvider);
+              final isDark = themeMode == ThemeMode.dark;
+
+              return SettingsSwitch(
+                title: "profile_dark_mode".tr(),
+                icon: Icons.dark_mode_outlined,
+                value: isDark,
+                onChanged: (value) {
+                  ref.read(themeProvider.notifier).toggleTheme(value);
+                },
+              );
+            },
+          ),
+          SizedBox(height: 10),
+          Consumer(
+            builder: (context, ref, _) {
+              return SettingsItem(
+                title: "profile_language".tr(),
+                icon: Icons.language,
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            title: Text("English"),
+                            onTap: () async {
+                              await context.setLocale(const Locale('ar'));
+                              if (context.mounted) {
+                                (context as Element).markNeedsBuild();
+                              }
+                              ref
+                                  .read(languageProvider.notifier)
+                                  .changeLanguage(context, const Locale('en'));
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text("العربية"),
+                            onTap: () {
+                              ref
+                                  .read(languageProvider.notifier)
+                                  .changeLanguage(context, const Locale('ar'));
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
 
           const Divider(height: 30),
 
           SettingsItem(
-            title: "My Bookings",
+            title: "profile_my_bookings".tr(),
             icon: Icons.calendar_today_outlined,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MyBookingsView()),
+              );
+            },
           ),
 
           SettingsItem(
-            title: "Account Settings",
+            title: "profile_account_settings".tr(),
             icon: Icons.settings_outlined,
           ),
 
-          SettingsItem(title: "About Dalil Syria", icon: Icons.info_outline),
+          SettingsItem(title: "profile_about".tr(), icon: Icons.info_outline),
 
-          SettingsItem(title: "Contact Support", icon: Icons.mail_outline),
+          SettingsItem(title: "profile_support".tr(), icon: Icons.mail_outline),
         ],
       ),
     );

@@ -1,24 +1,52 @@
+import 'package:dalil_syria/core/providers/app_providers.dart';
+
+import 'package:dalil_syria/features/auth/presentation/providers/auth_provider.dart';
+import 'package:dalil_syria/features/auth/presentation/views/login_view.dart';
 import 'package:dalil_syria/features/auth/presentation/views/onboarding_view.dart';
 import 'package:dalil_syria/features/auth/presentation/widgets/splash_central_wedget.dart';
+import 'package:dalil_syria/features/main/presentation/views/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SplashView extends StatefulWidget {
+class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  ConsumerState<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    super.initState();
+    navigate();
+  }
+
+  void navigate() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    final session = ref.read(sessionServiceProvider);
+    final auth = ref.read(authProvider.notifier);
+
+    final isFirstTime = session.isFirstTime();
+    final isLoggedIn = auth.isLoggedIn();
+
+    if (isFirstTime) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => OnboardingView()),
+        MaterialPageRoute(builder: (_) => const OnboardingView()),
       );
-    });
-    super.initState();
+    } else if (!isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginView()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainView()),
+      );
+    }
   }
 
   @override

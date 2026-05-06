@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class CustomTextFieldBooking extends StatelessWidget {
   final String label;
   final String hint;
+  final TextEditingController? controller;
 
   const CustomTextFieldBooking({
     super.key,
     required this.label,
     required this.hint,
+    this.controller,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomTextFieldBooking extends StatelessWidget {
         AppCard(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
               hintText: hint,
               border: InputBorder.none,

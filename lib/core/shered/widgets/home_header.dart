@@ -4,11 +4,15 @@ class HomeHeader extends StatelessWidget {
   final String main_text;
   final String scandry_text;
   final String hint_text;
+  final TextEditingController? controller;
+  final FocusNode? searchFocusNode;
   HomeHeader({
     Key? key,
     required this.main_text,
     required this.scandry_text,
     required this.hint_text,
+    this.controller,
+    this.searchFocusNode,
   }) : super(key: key);
 
   @override
@@ -39,6 +43,8 @@ class HomeHeader extends StatelessWidget {
           ),
           const SizedBox(height: 25),
           TextField(
+            controller: controller,
+            focusNode: searchFocusNode,
             decoration: InputDecoration(
               hintText: hint_text,
               prefixIcon: const Icon(Icons.search, color: Colors.grey),

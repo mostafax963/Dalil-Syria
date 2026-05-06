@@ -1,14 +1,17 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AvailableTripCard extends StatelessWidget {
   final String title, duration, price;
   final VoidCallback? onTap;
+  final String imageUrl;
   const AvailableTripCard({
     super.key,
     required this.title,
     required this.duration,
     required this.price,
+    required this.imageUrl,
     this.onTap,
   });
 
@@ -21,8 +24,8 @@ class AvailableTripCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                'images/imag 1.jpg',
+              child: Image.network(
+                imageUrl,
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,
@@ -42,7 +45,7 @@ class AvailableTripCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "Duration: $duration",
+                    "${"Duration".tr()} : $duration",
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   const SizedBox(height: 5),
