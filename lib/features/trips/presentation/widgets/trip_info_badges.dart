@@ -9,26 +9,28 @@ class TripInfoBadges extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _buildBadge(
-          Icons.access_time,
-          "${trip.duration_days} ${"Days".tr()} / ${trip.duration_nights} ${"Nights".tr()}",
-          context,
-        ),
-        const SizedBox(width: 15),
-        _buildBadge(
-          Icons.group_outlined,
-          "${"trip_max_people".tr()} ${trip.maxPeople} ",
-          context,
-        ),
-      ],
+    return SizedBox(
+      child: Row(
+        children: [
+          _buildBadge(
+            Icons.access_time,
+            "${trip.duration_days} ${"Days".tr()} / ${trip.duration_nights} ${"Nights".tr()}",
+            context,
+          ),
+          const SizedBox(width: 15),
+          _buildBadge(
+            Icons.group_outlined,
+            "${"trip_max_people".tr()} ${trip.maxPeople} ",
+            context,
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildBadge(IconData icon, String text, context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.card(context),
         borderRadius: BorderRadius.circular(12),

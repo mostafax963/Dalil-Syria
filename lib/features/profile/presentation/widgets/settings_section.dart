@@ -3,8 +3,6 @@ import 'package:dalil_syria/core/providers/notification_toggle_provider.dart';
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
 import 'package:dalil_syria/core/theme/theme_provider.dart';
 
-import 'package:dalil_syria/features/booking/presentation/views/my_bookings_view.dart';
-
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_item.dart';
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_switch.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -103,17 +101,6 @@ class SettingsSection extends StatelessWidget {
           ),
 
           const Divider(height: 30),
-
-          SettingsItem(
-            title: "profile_my_bookings".tr(),
-            icon: Icons.calendar_today_outlined,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const MyBookingsView()),
-              );
-            },
-          ),
 
           SettingsItem(
             title: "profile_account_settings".tr(),

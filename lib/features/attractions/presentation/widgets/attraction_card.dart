@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -43,11 +44,15 @@ class AttractionCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20),
                   ),
-                  child: Image.network(
-                    imagePath,
-                    height: 180,
-                    width: double.infinity,
+                  child: CachedNetworkImage(
+                    imageUrl: imagePath,
                     fit: BoxFit.cover,
+
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 Positioned(
@@ -58,24 +63,24 @@ class AttractionCard extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: AppColors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.location_on,
-                            color: Colors.white70,
+                            color: AppColors.textSecondary(context),
                             size: 14,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             location,
-                            style: const TextStyle(
-                              color: Colors.white70,
+                            style: TextStyle(
+                              color: AppColors.textSecondary(context),
                               fontSize: 12,
                             ),
                           ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,17 @@ class TourismOfficeCard extends StatelessWidget {
                 child: Stack(
                   alignment: AlignmentGeometry.topRight,
                   children: [
-                    Image.network(
-                      imageUrl,
-                      height: 100,
+                    CachedNetworkImage(
                       width: 160,
+                      height: 100,
+                      imageUrl: imageUrl,
                       fit: BoxFit.cover,
+
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

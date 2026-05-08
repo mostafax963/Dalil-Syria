@@ -1,3 +1,4 @@
+import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:dalil_syria/features/trips/data/models/trip_details_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,6 @@ class TripHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleColor = Color(0xFF1B1E28);
     const textColor = Color(0xFF7D848D);
     const primaryColor = Color(0xFF0D6EFD);
 
@@ -23,7 +23,7 @@ class TripHeader extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: titleColor,
+                  color: AppColors.primary,
                 ),
               ),
             ),

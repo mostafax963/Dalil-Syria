@@ -40,6 +40,13 @@ class OfficeDetailsView extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        office.name,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Text("${office.reviewsCount} ${"office_reviews".tr()}"),
 
                       const SizedBox(height: 10),

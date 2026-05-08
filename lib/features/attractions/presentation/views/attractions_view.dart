@@ -53,7 +53,7 @@ class _AttractionsViewState extends ConsumerState<AttractionsView> {
                 }).toList();
 
                 if (filteredList.isEmpty) {
-                  return Center(child: Text("No results found".tr()));
+                  return Center(child: Text("attractions_no_results".tr()));
                 }
 
                 return ListView.builder(

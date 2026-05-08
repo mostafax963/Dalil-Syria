@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/features/trips/presentation/views/trip_details_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,18 @@ class AvailableToursSection extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Image.network(trip.image, width: 80, height: 80),
+                    CachedNetworkImage(
+                      width: 80,
+                      height: 80,
+                      imageUrl: trip.image,
+                      fit: BoxFit.cover,
+
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
 
                     const SizedBox(width: 10),
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/features/favorite/presentation/provider/favorites_provider.dart';
 import 'package:dalil_syria/features/trips/presentation/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +29,14 @@ class _ImageSliderState extends State<ImageSlider> {
       children: [
         CarouselSlider(
           items: images.map((item) {
-            return Image.network(
-              item,
+            return CachedNetworkImage(
+              imageUrl: item,
               fit: BoxFit.cover,
-              width: double.infinity,
-              errorBuilder: (context, error, stackTrace) {
-                return const Center(child: Icon(Icons.broken_image, size: 50));
-              },
+
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             );
           }).toList(),
 

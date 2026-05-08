@@ -118,6 +118,7 @@ class _BookingViewState extends ConsumerState<BookingView> {
                           "guests": guests.toInt(),
                         }).future,
                       );
+                      ref.invalidate(bookingsProvider);
                       final isEnabled = ref.read(notificationToggleProvider);
 
                       if (isEnabled) {

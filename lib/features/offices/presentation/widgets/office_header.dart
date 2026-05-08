@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +15,14 @@ class OfficeHeader extends StatelessWidget {
             bottomLeft: Radius.circular(35),
             bottomRight: Radius.circular(35),
           ),
-          child: Image.network(
-            imageUrl,
-            height: 340,
-            width: double.infinity,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
             fit: BoxFit.cover,
+
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
 

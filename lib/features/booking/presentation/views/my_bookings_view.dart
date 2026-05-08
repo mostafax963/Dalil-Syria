@@ -19,8 +19,7 @@ class MyBookingsView extends ConsumerWidget {
           Heder(
             section_name: "my_bookings_title".tr(),
             second_name: "my_bookings_subtitle".tr(),
-            icon_name: Icons.arrow_back,
-            onTap: () => Navigator.pop(context),
+            icon_name: Icons.book_online_outlined,
           ),
 
           Expanded(

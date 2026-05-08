@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AttractionImageHeader extends StatelessWidget {
@@ -16,41 +17,14 @@ class AttractionImageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          image,
-          height: 380,
-          width: double.infinity,
+        CachedNetworkImage(
+          imageUrl: image,
           fit: BoxFit.cover,
-        ),
-        Container(
-          height: 380,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withOpacity(0.3),
-                Colors.transparent,
-                Colors.black.withOpacity(0.6),
-              ],
-            ),
-          ),
-        ),
 
-        // overlay
-        Container(
-          height: 380,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withOpacity(0.3),
-                Colors.transparent,
-                Colors.black.withOpacity(0.6),
-              ],
-            ),
-          ),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
 
         Positioned(
