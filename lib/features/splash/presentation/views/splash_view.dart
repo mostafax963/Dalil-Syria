@@ -2,8 +2,8 @@ import 'package:dalil_syria/core/providers/app_providers.dart';
 
 import 'package:dalil_syria/features/auth/presentation/providers/auth_provider.dart';
 import 'package:dalil_syria/features/auth/presentation/views/login_view.dart';
-import 'package:dalil_syria/features/auth/presentation/views/onboarding_view.dart';
-import 'package:dalil_syria/features/auth/presentation/widgets/splash_central_wedget.dart';
+import 'package:dalil_syria/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:dalil_syria/features/splash/presentation/widgets/splash_central_wedget.dart';
 import 'package:dalil_syria/features/main/presentation/views/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

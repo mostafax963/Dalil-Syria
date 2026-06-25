@@ -1,11 +1,12 @@
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
-import 'package:dalil_syria/features/trips/data/models/trip_timeline_model.dart';
+
+import 'package:dalil_syria/features/trips/domain/entities/trip_timeline_entity.dart';
 import 'package:dalil_syria/features/trips/presentation/widgets/trip_timeline_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TripTimelineSection extends StatelessWidget {
-  final List<TripTimelineModel> timeline;
+  final List<TripTimelineEntity> timeline;
 
   const TripTimelineSection({super.key, required this.timeline});
 

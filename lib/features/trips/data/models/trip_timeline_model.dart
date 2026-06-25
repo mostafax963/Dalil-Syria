@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class TripTimelineModel {
-  final int day;
-  final String title;
-  final String description;
+import 'package:dalil_syria/features/trips/domain/entities/trip_timeline_entity.dart';
+
+class TripTimelineModel extends TripTimelineEntity {
   TripTimelineModel({
-    required this.day,
-    required this.title,
-    required this.description,
+    required super.day,
+    required super.title,
+    required super.description,
   });
 
   TripTimelineModel copyWith({int? day, String? title, String? description}) {

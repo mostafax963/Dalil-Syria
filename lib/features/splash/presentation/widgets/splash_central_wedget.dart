@@ -1,4 +1,4 @@
-import 'package:dalil_syria/features/auth/presentation/widgets/three_bounce_dots.dart';
+import 'package:dalil_syria/features/splash/presentation/widgets/three_bounce_dots.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

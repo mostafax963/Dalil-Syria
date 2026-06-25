@@ -8,12 +8,13 @@ import 'package:dalil_syria/features/booking/presentation/widgets/price_breakdow
 import 'package:dalil_syria/features/booking/presentation/widgets/trip_summary_card.dart';
 import 'package:dalil_syria/features/booking/presentation/provider/booking_provider.dart';
 import 'package:dalil_syria/features/main/presentation/views/main_view.dart';
+import 'package:dalil_syria/features/trips/domain/entities/trip_details_entity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BookingView extends ConsumerStatefulWidget {
-  final dynamic trip;
+  final TripDetailsEntity trip;
 
   const BookingView({super.key, required this.trip});
 
@@ -108,35 +109,48 @@ class _BookingViewState extends ConsumerState<BookingView> {
                         return;
                       }
 
-                      await ref.read(
-                        createBookingProvider({
-                          "tripId": widget.trip.id,
-                          "fullName": fullNameController.text.trim(),
-                          "email": emailController.text.trim(),
-                          "phone": phoneController.text.trim(),
-                          "date": selectedDate!.toIso8601String().split('T')[0],
-                          "guests": guests.toInt(),
-                        }).future,
-                      );
-                      ref.invalidate(bookingsProvider);
-                      final isEnabled = ref.read(notificationToggleProvider);
+                      try {
+                        await ref.read(
+                          createBookingProvider({
+                            "tripId": widget.trip.id,
+                            "fullName": fullNameController.text.trim(),
+                            "email": emailController.text.trim(),
+                            "phone": phoneController.text.trim(),
+                            "date": selectedDate!.toIso8601String().split(
+                              'T',
+                            )[0],
+                            "guests": guests.toInt(),
+                          }).future,
+                        );
 
-                      if (isEnabled) {
-                        await ref
-                            .read(notificationServiceProvider)
-                            .showNotification(
-                              title: "notifications_title".tr(),
-                              body: "body".tr() + "${widget.trip.title}",
-                            );
+                        ref.invalidate(bookingsProvider);
+
+                        final isEnabled = ref.read(notificationToggleProvider);
+
+                        if (isEnabled) {
+                          await ref
+                              .read(notificationServiceProvider)
+                              .showNotification(
+                                title: "notifications_title".tr(),
+                                body: "body".tr() + "${widget.trip.title}",
+                              );
+                        }
+
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("booking_success".tr())),
+                          );
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => MainView()),
+                          );
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(e.toString())));
                       }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("booking_success".tr())),
-                      );
-
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (_) => MainView()),
-                      );
                     },
                   ),
                 ],

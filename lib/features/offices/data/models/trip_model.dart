@@ -1,20 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class TripModel {
-  final String id;
-  final String title;
-  final double price;
-  final int durationDays;
-  final int durationNights;
-  final String image;
+import 'package:dalil_syria/features/offices/domain/entities/office_trip_entity.dart';
+
+class TripModel extends OfficeTripEntity {
   TripModel({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.durationDays,
-    required this.durationNights,
-    required this.image,
+    required super.id,
+    required super.title,
+    required super.price,
+    required super.durationDays,
+    required super.durationNights,
+    required super.image,
   });
 
   TripModel copyWith({

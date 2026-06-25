@@ -1,26 +1,41 @@
+import 'package:dalil_syria/core/config/app_constants.dart';
+import 'package:dalil_syria/core/errors/exceptions.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../models/office_model.dart';
-import '../models/trip_model.dart';
 
 class OfficeRemoteDataSource {
   final supabase = Supabase.instance.client;
 
-  Future<OfficeModel> getOffice(String officeId) async {
-    final data = await supabase
-        .from('offices')
-        .select()
-        .eq('id', officeId)
-        .single();
+  Future<Map<String, dynamic>> getOffice(String officeId) async {
+    try {
+      final data = await supabase
+          .from(AppConstants.officesTable)
+          .select()
+          .eq('id', officeId)
+          .single()
+          .timeout(const Duration(seconds: 10));
 
-    return OfficeModel.fromMap(data);
+      return data;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException("office_error".tr());
+    }
   }
 
-  Future<List<TripModel>> getOfficeTrips(String officeId) async {
-    final data = await supabase
-        .from('trips')
-        .select()
-        .eq('office_id', officeId);
+  Future<List<Map<String, dynamic>>> getOfficeTrips(String officeId) async {
+    try {
+      final data = await supabase
+          .from(AppConstants.tripsTable)
+          .select()
+          .eq('office_id', officeId)
+          .timeout(const Duration(seconds: 10));
 
-    return data.map((e) => TripModel.fromMap(e)).toList();
+      return List<Map<String, dynamic>>.from(data);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException("office_error_trips".tr());
+    }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dalil_syria/core/shered/widgets/app_cached_image.dart';
 import 'package:dalil_syria/features/favorite/presentation/provider/favorites_provider.dart';
 import 'package:dalil_syria/features/trips/presentation/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +29,11 @@ class _ImageSliderState extends State<ImageSlider> {
       children: [
         CarouselSlider(
           items: images.map((item) {
-            return CachedNetworkImage(
+            return AppCachedImage(
               imageUrl: item,
+              width: double.infinity,
+              height: 380,
               fit: BoxFit.cover,
-
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             );
           }).toList(),
 
@@ -68,7 +65,7 @@ class _ImageSliderState extends State<ImageSlider> {
               Consumer(
                 builder: (context, ref, _) {
                   final favs = ref.watch(favoritesProvider);
-                  final isFav = favs.contains(widget.tripId);
+                  final isFav = favs.favorites.contains(widget.tripId);
 
                   return FavoriteButton(
                     isFav: isFav,

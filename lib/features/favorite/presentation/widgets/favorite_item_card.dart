@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalil_syria/core/theme/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteItemCard extends StatelessWidget {
@@ -149,11 +150,11 @@ class FavoriteItemCard extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.delete_outline, size: 18),
                 SizedBox(width: 8),
                 Text(
-                  "Remove from favorites",
+                  "Remove from favorites".tr(),
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
                 ),
               ],

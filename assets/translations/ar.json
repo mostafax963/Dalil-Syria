@@ -32,6 +32,7 @@
   "login_google": "المتابعة عبر غوغل",
   "login_no_account": "ليس لديك حساب؟ ",
   "login_register": "إنشاء حساب",
+  "error_generic": "حدث خطأ غير متوقع",
 
   "home_title": "اكتشف سوريا",
   "home_subtitle": "ابحث عن مغامرتك القادمة",
@@ -58,12 +59,15 @@
   "About": " عن الموقع",
   "Highlights":"أبرزالمعالم",
   "Available Tours":"الجولات المتاحة",
+  "error_attraction_details": "فشل تحميل تفاصيل المنطقة السياحية",
 
   "office_contact": "التواصل",
   "office_about": "عن المكتب",
   "office_reviews": "تقييم",
   "Available Trips": "الرحلات المتاحة",
   "office_no_trips": "لا توجد رحلات",
+  "office_error": "حدث خطأ أثناء جلب بيانات المكتب",
+  "office_error_trips": "حدث خطأ أثناء جلب رحلات المكتب",
   "Days": "أيام",
   "Nights": "ليالي",
   "Duration": "المدة",
@@ -98,6 +102,9 @@
   "Trip Summary": "ملخص الرحلة",
   "Select Date": "اختر التاريخ",
   "Contact Information": "معلومات التواصل",
+  "error_login_required": "يجب تسجيل الدخول أولاً",
+  "error_booking_create": "فشل إنشاء الحجز",
+  "error_bookings_load": "فشل تحميل الحجوزات",
 
   "my_bookings_title": "حجوزاتي",
   "my_bookings_subtitle": "رحلاتك القادمة والسابقة",
@@ -108,6 +115,10 @@
   "favorites_title": "المفضلة",
   "favorites_subtitle": "رحلاتك المفضلة",
   "favorites_empty": "لا توجد مفضلة بعد",
+  "error_favorites_load": "فشل تحميل المفضلة",
+  "error_favorites_update": "فشل تعديل المفضلة",
+  "error_favorites_check": "فشل التحقق من المفضلة",
+  "Remove from favorites": "إزالة من المفضلة",
 
   "profile_title": "الحساب",
   "profile_subtitle": "إدارة حسابك",
@@ -121,9 +132,13 @@
   "profile_support": "التواصل مع الدعم",
   "profile_logout": "تسجيل الخروج",
   "profile_version": "دليل سوريا v1.0.0",
+  "profile_error": "حدث خطأ أثناء تحميل الحساب",
+"profile_logout_error": "حدث خطأ أثناء تسجيل الخروج",
+"profile_not_logged_in": "المستخدم غير مسجل دخول",
 
   "notifications_title":"تم الحجز بنجاح ",
   "body": "تم تأكيد رحلتك إلى ",
+  "coniction_state":"لا يوجد اتصال بالإنترنت",
 
   "lang_english": "English",
   "lang_arabic": "العربية",

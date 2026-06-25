@@ -1,4 +1,5 @@
-import 'package:dalil_syria/features/auth/data/repositories/auth_repository.dart';
+import 'package:dalil_syria/core/errors/exceptions.dart';
+import 'package:dalil_syria/features/auth/domain/repositories/auth_repository.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -46,25 +47,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await loginUseCase(email, password);
 
       state = state.copyWith(isLoading: false);
+
       return true;
-    } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: "Email or password incorrect".tr(),
-      );
+    } on AuthException catch (e) {
+      state = state.copyWith(isLoading: false, error: e.message);
+
       return false;
-    }
-  }
-
-  Future<void> logout() async {
-    state = state.copyWith(isLoading: true);
-
-    try {
-      await repo.logout();
-
-      state = state.copyWith(isLoading: false);
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: "Logout failed");
+      state = state.copyWith(isLoading: false, error: "error_generic".tr());
+
+      return false;
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dalil_syria/features/auth/data/repositories/auth_repository.dart';
+import 'package:dalil_syria/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginUseCase {
   final AuthRepository repo;

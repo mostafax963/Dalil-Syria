@@ -1,28 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class OfficeModel {
-  final String id;
-  final String name;
-  final String image;
-  final double rating;
-  final int reviewsCount;
-  final String location;
-  final String about;
-  final String phone;
-  final String email;
-  final String website;
+import 'package:dalil_syria/features/offices/domain/entities/office_entity.dart';
+
+class OfficeModel extends OfficeEntity {
   OfficeModel({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.rating,
-    required this.reviewsCount,
-    required this.location,
-    required this.about,
-    required this.phone,
-    required this.email,
-    required this.website,
+    required super.id,
+    required super.name,
+    required super.image,
+    required super.rating,
+    required super.reviewsCount,
+    required super.location,
+    required super.about,
+    required super.phone,
+    required super.email,
+    required super.website,
   });
 
   OfficeModel copyWith({

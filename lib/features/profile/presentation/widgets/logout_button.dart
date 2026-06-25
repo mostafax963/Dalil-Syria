@@ -1,4 +1,3 @@
-import 'package:dalil_syria/features/auth/presentation/providers/auth_provider.dart';
 import 'package:dalil_syria/features/auth/presentation/views/login_view.dart';
 import 'package:dalil_syria/features/booking/presentation/Provider/booking_provider.dart';
 import 'package:dalil_syria/features/favorite/presentation/provider/favorites_provider.dart';
@@ -14,17 +13,27 @@ class LogoutButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () async {
-        ref.invalidate(profileProvider);
-        ref.invalidate(favoritesProvider);
-        ref.invalidate(bookingsProvider);
-        if (context.mounted) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => const LoginView()),
-            (route) => false,
-          );
+        try {
+          await ref.read(logoutUseCaseProvider).call();
+
+          ref.invalidate(profileProvider);
+          ref.invalidate(favoritesProvider);
+          ref.invalidate(bookingsProvider);
+
+          if (context.mounted) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const LoginView()),
+              (route) => false,
+            );
+          }
+        } catch (e) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("coniction_state".tr())));
+          }
         }
-        await ref.read(authProvider.notifier).logout();
       },
       child: Container(
         width: double.infinity,

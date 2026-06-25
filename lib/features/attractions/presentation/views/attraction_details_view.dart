@@ -1,3 +1,5 @@
+import 'package:dalil_syria/core/shered/widgets/async_value_widget.dart';
+import 'package:dalil_syria/core/shered/widgets/network_aware_widget.dart';
 import 'package:dalil_syria/features/attractions/presentation/PROVIDERS/attraction_provider.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/about_section.dart';
 import 'package:dalil_syria/features/attractions/presentation/widgets/attraction_image_header.dart';
@@ -16,51 +18,57 @@ class AttractionDetailsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(attractionDetailsProvider(id));
 
-    return Scaffold(
-      body: asyncData.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+    return NetworkAwareWidget(
+      onRetry: () {
+        ref.invalidate(attractionDetailsProvider(id));
+      },
+      child: Scaffold(
+        body: AsyncValueWidget(
+          value: asyncData,
+          onRetry: () {
+            ref.invalidate(attractionDetailsProvider(id));
+          },
 
-        error: (e, _) => Center(child: Text("Error")),
+          data: (data) {
+            final attraction = data.attraction;
+            final highlights = data.highlights;
+            final trips = data.trips;
 
-        data: (data) {
-          final attraction = data['attraction'];
-          final highlights = data['highlights'];
-          final trips = data['trips'];
-
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                AttractionImageHeader(
-                  image: attraction.image,
-                  title: attraction.title,
-                  location: attraction.location,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      InfoQuickGrid(
-                        duration: attraction.visitDuration,
-                        bestTime: attraction.bestTime,
-                      ),
-                      SizedBox(height: 10),
-
-                      AboutSection(description: attraction.description),
-                      SizedBox(height: 10),
-
-                      HighlightsSection(highlights: highlights),
-
-                      const SizedBox(height: 20),
-
-                      AvailableToursSection(trips: trips),
-                    ],
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  AttractionImageHeader(
+                    image: attraction.image,
+                    title: attraction.title,
+                    location: attraction.location,
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        InfoQuickGrid(
+                          duration: attraction.visitDuration,
+                          bestTime: attraction.bestTime,
+                        ),
+                        SizedBox(height: 10),
+
+                        AboutSection(description: attraction.description),
+                        SizedBox(height: 10),
+
+                        HighlightsSection(highlights: highlights),
+
+                        const SizedBox(height: 20),
+
+                        AvailableToursSection(trips: trips),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

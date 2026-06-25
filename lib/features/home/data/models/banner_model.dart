@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class BannerModel {
-  final String image;
-  final String title;
-  final String description;
+import 'package:dalil_syria/features/home/domain/entities/banner_entity.dart';
+
+class BannerModel extends BannerEntity {
   BannerModel({
-    required this.image,
-    required this.title,
-    required this.description,
+    required super.image,
+    required super.title,
+    required super.description,
   });
 
   BannerModel copyWith({String? image, String? title, String? description}) {

@@ -1,38 +1,23 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
+import 'package:dalil_syria/features/trips/domain/entities/trip_details_entity.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:dalil_syria/features/trips/data/models/trip_included_model.dart';
 import 'package:dalil_syria/features/trips/data/models/trip_timeline_model.dart';
 
-class TripDetailsModel {
-  final String id;
-  final String title;
-  final String image;
-  final double price;
-  final String location;
-  final int duration_days;
-  final int duration_nights;
-  final int maxPeople;
-  final String description;
-
-  final List<String> images;
-  final List<TripTimelineModel> timeline;
-  final List<TripIncludedModel> included;
+class TripDetailsModel extends TripDetailsEntity {
   TripDetailsModel({
-    required this.id,
-    required this.title,
-    required this.image,
-    required this.price,
-    required this.location,
-    required this.duration_days,
-    required this.duration_nights,
-    required this.maxPeople,
-    required this.description,
-    required this.images,
-    required this.timeline,
-    required this.included,
+    required super.id,
+    required super.title,
+    required super.image,
+    required super.price,
+    required super.location,
+    required super.durationDays,
+    required super.durationNights,
+    required super.maxPeople,
+    required super.description,
+    required super.images,
+    required super.timeline,
+    required super.included,
   });
 
   TripDetailsModel copyWith({
@@ -41,8 +26,8 @@ class TripDetailsModel {
     String? image,
     double? price,
     String? location,
-    int? duration_days,
-    int? duration_nights,
+    int? durationDays, // ✅ كان duration_days
+    int? durationNights, // ✅ كان duration_nights
     int? maxPeople,
     String? description,
     List<String>? images,
@@ -55,8 +40,8 @@ class TripDetailsModel {
       image: image ?? this.image,
       price: price ?? this.price,
       location: location ?? this.location,
-      duration_days: duration_days ?? this.duration_days,
-      duration_nights: duration_nights ?? this.duration_nights,
+      durationDays: durationDays ?? this.durationDays, // ✅ إصلاح
+      durationNights: durationNights ?? this.durationNights, // ✅ إصلاح
       maxPeople: maxPeople ?? this.maxPeople,
       description: description ?? this.description,
       images: images ?? this.images,
@@ -65,46 +50,46 @@ class TripDetailsModel {
     );
   }
 
+  factory TripDetailsModel.fromMap(Map<String, dynamic> map) {
+    return TripDetailsModel(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      image: map['image'] as String? ?? '',
+      price: (map['price'] as num).toDouble(), // ✅ إصلاح
+      location: map['location'] as String? ?? '',
+      durationDays: map['duration_days'] as int, // ✅ snake_case
+      durationNights: map['duration_nights'] as int, // ✅ snake_case
+      maxPeople: map['max_people'] as int, // ✅ snake_case
+      description: map['description'] as String? ?? '',
+      images: List<String>.from(map['images'] as List), // ✅ إصلاح
+      timeline: List<TripTimelineModel>.from(
+        (map['timeline'] as List).map((x) => TripTimelineModel.fromMap(x)),
+      ),
+      included: List<TripIncludedModel>.from(
+        (map['included'] as List).map((x) => TripIncludedModel.fromMap(x)),
+      ),
+    );
+  }
+
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'id': id,
       'title': title,
       'image': image,
       'price': price,
       'location': location,
-      'duration_days': duration_days,
-      'duration_nights': duration_nights,
-      'maxPeople': maxPeople,
+      'duration_days': durationDays,
+      'duration_nights': durationNights,
+      'max_people': maxPeople,
       'description': description,
       'images': images,
-      'timeline': timeline.map((x) => x.toMap()).toList(),
-      'included': included.map((x) => x.toMap()).toList(),
+      'timeline': (timeline as List<TripTimelineModel>)
+          .map((x) => x.toMap())
+          .toList(),
+      'included': (included as List<TripIncludedModel>)
+          .map((x) => x.toMap())
+          .toList(),
     };
-  }
-
-  factory TripDetailsModel.fromMap(Map<String, dynamic> map) {
-    return TripDetailsModel(
-      timeline: List<TripTimelineModel>.from(
-        (map['timeline'] as List<Map<String, dynamic>>).map<TripTimelineModel>(
-          (x) => TripTimelineModel.fromMap(x),
-        ),
-      ),
-      included: List<TripIncludedModel>.from(
-        (map['included'] as List<Map<String, dynamic>>).map<TripIncludedModel>(
-          (x) => TripIncludedModel.fromMap(x),
-        ),
-      ),
-      id: map['id'] as String,
-      title: map['title'] as String,
-      image: map['image'] as String,
-      price: map['price'] as double,
-      location: map['location'] as String,
-      duration_days: map['duration_days'] as int,
-      duration_nights: map['duration_nights'] as int,
-      maxPeople: map['maxPeople'] as int,
-      description: map['description'] as String,
-      images: List<String>.from((map['images'] as List<String>)),
-    );
   }
 
   String toJson() => json.encode(toMap());
@@ -113,41 +98,16 @@ class TripDetailsModel {
       TripDetailsModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'TripDetailsModel(id: $id, title: $title, image: $image, price: $price, location: $location, duration_days: $duration_days, duration_nights: $duration_nights, maxPeople: $maxPeople, description: $description, images: $images, timeline: $timeline, included: $included)';
-  }
-
-  @override
   bool operator ==(covariant TripDetailsModel other) {
     if (identical(this, other)) return true;
-
     return other.id == id &&
         other.title == title &&
-        other.image == image &&
         other.price == price &&
-        other.location == location &&
-        other.duration_days == duration_days &&
-        other.duration_nights == duration_nights &&
-        other.maxPeople == maxPeople &&
-        other.description == description &&
         listEquals(other.images, images) &&
         listEquals(other.timeline, timeline) &&
         listEquals(other.included, included);
   }
 
   @override
-  int get hashCode {
-    return id.hashCode ^
-        title.hashCode ^
-        image.hashCode ^
-        price.hashCode ^
-        location.hashCode ^
-        duration_days.hashCode ^
-        duration_nights.hashCode ^
-        maxPeople.hashCode ^
-        description.hashCode ^
-        images.hashCode ^
-        timeline.hashCode ^
-        included.hashCode;
-  }
+  int get hashCode => id.hashCode ^ title.hashCode ^ price.hashCode;
 }

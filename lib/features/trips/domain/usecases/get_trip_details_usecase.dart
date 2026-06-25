@@ -1,12 +1,12 @@
-import 'package:dalil_syria/features/trips/data/models/trip_details_model.dart';
-import 'package:dalil_syria/features/trips/domain/repositories/trip_repository.dart';
+import '../entities/trip_details_entity.dart';
+import '../repositories/trip_repository.dart';
 
 class GetTripDetailsUseCase {
-  final TripRepository repo;
+  final TripRepository repository;
 
-  GetTripDetailsUseCase(this.repo);
+  GetTripDetailsUseCase(this.repository);
 
-  Future<TripDetailsModel> call(String id) {
-    return repo.getTripDetails(id);
+  Future<TripDetailsEntity> call(String id) {
+    return repository.getTripDetails(id);
   }
 }

@@ -11,7 +11,7 @@ class TripIncludedItem extends StatelessWidget {
       children: [
         const Icon(Icons.check_circle, color: Color(0xFF0D6EFD)),
         const SizedBox(width: 12),
-        Text(text),
+        Expanded(child: Text(text)),
       ],
     );
   }

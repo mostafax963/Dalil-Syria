@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class TripIncludedModel {
-  final String title;
-  TripIncludedModel({required this.title});
+import 'package:dalil_syria/features/trips/domain/entities/trip_included_entity.dart';
+
+class TripIncludedModel extends TripIncludedEntity {
+  TripIncludedModel({required super.title});
 
   TripIncludedModel copyWith({String? title}) {
     return TripIncludedModel(title: title ?? this.title);

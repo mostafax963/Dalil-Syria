@@ -1,10 +1,11 @@
+import 'package:dalil_syria/core/config/supabase_config.dart';
 import 'package:dalil_syria/core/providers/app_providers.dart';
 import 'package:dalil_syria/core/providers/notification_service_provider.dart';
 import 'package:dalil_syria/core/services/notification_service.dart';
 import 'package:dalil_syria/core/theme/app_theme.dart';
-import 'package:dalil_syria/core/theme/theme_provider.dart';
+import 'package:dalil_syria/core/providers/theme_provider.dart';
 
-import 'package:dalil_syria/features/auth/presentation/views/splash_view.dart';
+import 'package:dalil_syria/features/splash/presentation/views/splash_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,8 +18,8 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   // prefs.clear();
   await Supabase.initialize(
-    url: "https://ttvdmqhogckgxghuxvip.supabase.co",
-    anonKey: "sb_publishable_vi9uXNPSE6INR3pscs60_Q_aOpDosKM",
+    url: SupabaseConfig.supabaseUrl,
+    anonKey: SupabaseConfig.supabaseAnonKey,
   );
   final notificationService = NotificationService();
   await notificationService.init();

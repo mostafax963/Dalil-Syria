@@ -1,7 +1,7 @@
 import 'package:dalil_syria/core/providers/language_provider.dart';
 import 'package:dalil_syria/core/providers/notification_toggle_provider.dart';
 import 'package:dalil_syria/core/shered/widgets/app_card.dart';
-import 'package:dalil_syria/core/theme/theme_provider.dart';
+import 'package:dalil_syria/core/providers/theme_provider.dart';
 
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_item.dart';
 import 'package:dalil_syria/features/profile/presentation/widgets/settings_switch.dart';
@@ -72,10 +72,8 @@ class SettingsSection extends StatelessWidget {
                           ListTile(
                             title: Text("English"),
                             onTap: () async {
-                              await context.setLocale(const Locale('ar'));
-                              if (context.mounted) {
-                                (context as Element).markNeedsBuild();
-                              }
+                              await context.setLocale(const Locale('en'));
+                              if (context.mounted) {}
                               ref
                                   .read(languageProvider.notifier)
                                   .changeLanguage(context, const Locale('en'));

@@ -1,20 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class ProfileModel {
-  final String id;
-  final String email;
-  final String fullName;
-  final String phone;
-  final String city;
-  final String createdAt;
+import 'package:dalil_syria/features/profile/domain/entities/profile_entity.dart';
+
+class ProfileModel extends ProfileEntity {
   ProfileModel({
-    required this.id,
-    required this.email,
-    required this.fullName,
-    required this.phone,
-    required this.city,
-    required this.createdAt,
+    required super.id,
+    required super.email,
+    required super.fullName,
+    required super.phone,
+    required super.city,
+    required super.createdAt,
   });
 
   ProfileModel copyWith({
@@ -39,10 +35,10 @@ class ProfileModel {
     return <String, dynamic>{
       'id': id,
       'email': email,
-      'fullName': fullName,
+      'full_name': fullName,
+      'created_at': createdAt,
       'phone': phone,
       'city': city,
-      'createdAt': createdAt,
     };
   }
 

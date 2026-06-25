@@ -1,7 +1,8 @@
-import '../../data/models/office_model.dart';
-import '../../data/models/trip_model.dart';
+import '../entities/office_entity.dart';
+import '../entities/office_trip_entity.dart';
 
 abstract class OfficeRepository {
-  Future<OfficeModel> getOffice(String id);
-  Future<List<TripModel>> getOfficeTrips(String id);
+  Future<OfficeEntity> getOffice(String id);
+
+  Future<List<OfficeTripEntity>> getOfficeTrips(String id);
 }

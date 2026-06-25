@@ -1,20 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class BookingModel {
-  final String id;
-  final String tripId;
-  final String title;
-  final String image;
-  final String date;
-  final String status;
+import 'package:dalil_syria/features/booking/domain/entities/booking_entity.dart';
+
+class BookingModel extends BookingEntity {
   BookingModel({
-    required this.id,
-    required this.tripId,
-    required this.title,
-    required this.image,
-    required this.date,
-    required this.status,
+    required super.id,
+    required super.tripId,
+    required super.title,
+    required super.image,
+    required super.date,
+    required super.status,
   });
 
   BookingModel copyWith({

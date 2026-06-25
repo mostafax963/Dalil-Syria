@@ -1,5 +1,4 @@
-import 'package:dalil_syria/features/auth/data/repositories/auth_repository.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:dalil_syria/features/auth/domain/repositories/auth_repository.dart';
 
 import '../datasources/auth_remote_data_source.dart';
 
@@ -9,13 +8,8 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remote);
 
   @override
-  Future<void> login(String email, String password) {
-    return remote.login(email: email, password: password);
-  }
-
-  @override
-  Future<void> logout() async {
-    await Supabase.instance.client.auth.signOut();
+  Future<void> login(String email, String password) async {
+    await remote.login(email: email, password: password);
   }
 
   @override

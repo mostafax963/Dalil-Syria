@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dalil_syria/features/home/domain/entities/trip_entity.dart';
 import 'package:dalil_syria/features/trips/presentation/views/trip_details_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AvailableToursSection extends StatelessWidget {
-  final List trips;
+  final List<TripEntity> trips;
 
   const AvailableToursSection({super.key, required this.trips});
 
@@ -64,7 +65,7 @@ class AvailableToursSection extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(trip.title),
-                          Text("${trip.duration_days} ${"Days".tr()}"),
+                          Text("${trip.durationDays} ${"Days".tr()}"),
                           Text("\$${trip.price}"),
                         ],
                       ),

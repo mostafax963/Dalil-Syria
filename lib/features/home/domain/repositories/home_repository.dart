@@ -1,7 +1,11 @@
-import 'package:dalil_syria/features/home/data/models/office_model.dart';
-import 'package:dalil_syria/features/home/data/models/trip_model.dart';
+import 'package:dalil_syria/features/home/domain/entities/banner_entity.dart';
+import 'package:dalil_syria/features/home/domain/entities/office_entity.dart';
+import 'package:dalil_syria/features/home/domain/entities/trip_entity.dart';
 
 abstract class HomeRepository {
-  Future<List<OfficeModel>> getOffices();
-  Future<List<TripModel>> getTrips();
+  Future<List<OfficeEntity>> getOffices();
+
+  Future<List<TripEntity>> getTrips();
+
+  Future<List<BannerEntity>> getBanners();
 }

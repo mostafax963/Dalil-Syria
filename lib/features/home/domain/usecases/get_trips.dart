@@ -1,4 +1,4 @@
-import 'package:dalil_syria/features/home/data/models/trip_model.dart';
+import 'package:dalil_syria/features/home/domain/entities/trip_entity.dart';
 import 'package:dalil_syria/features/home/domain/repositories/home_repository.dart';
 
 class GetTrips {
@@ -6,7 +6,7 @@ class GetTrips {
 
   GetTrips(this.repo);
 
-  Future<List<TripModel>> call() {
+  Future<List<TripEntity>> call() {
     return repo.getTrips();
   }
 }

@@ -1,22 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class AttractionModel {
-  final String id;
-  final String title;
-  final String location;
-  final String description;
-  final String image;
-  final String visitDuration;
-  final String bestTime;
+import 'package:dalil_syria/features/attractions/domain/entities/attraction_entity.dart';
+
+class AttractionModel extends AttractionEntity {
   AttractionModel({
-    required this.id,
-    required this.title,
-    required this.location,
-    required this.description,
-    required this.image,
-    required this.visitDuration,
-    required this.bestTime,
+    required super.id,
+    required super.title,
+    required super.location,
+    required super.description,
+    required super.image,
+    required super.visitDuration,
+    required super.bestTime,
   });
 
   AttractionModel copyWith({
@@ -40,14 +35,14 @@ class AttractionModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'id': id,
       'title': title,
       'location': location,
       'description': description,
       'image': image,
-      'visitDuration': visitDuration,
-      'bestTime': bestTime,
+      'visit_duration': visitDuration,
+      'best_time': bestTime,
     };
   }
 

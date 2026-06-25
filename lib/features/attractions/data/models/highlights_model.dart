@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class HighlightsModel {
-  final String title;
-  HighlightsModel({required this.title});
+import 'package:dalil_syria/features/attractions/domain/entities/highlight_entity.dart';
+
+class HighlightsModel extends HighlightEntity {
+  HighlightsModel({required super.title});
 
   HighlightsModel copyWith({String? title}) {
     return HighlightsModel(title: title ?? this.title);
