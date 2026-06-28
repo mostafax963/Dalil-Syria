@@ -13,12 +13,56 @@ class AuthRemoteDataSource {
       );
 
       if (response.user == null) {
-        throw AuthException("فشل تسجيل الدخول");
+        throw AuthException("Login failed");
       }
     } on AuthException {
       rethrow;
-    } catch (e) {
+    } catch (_) {
       throw AuthException("Email or password incorrect".tr());
+    }
+  }
+
+  Future<void> register({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+  }) async {
+    try {
+      final response = await supabase.auth.signUp(
+        email: email,
+        password: password,
+      );
+
+      final user = response.user;
+
+      if (user == null) {
+        throw AuthException("Registration failed");
+      }
+
+      await supabase.from('profiles').insert({
+        'id': user.id,
+        'full_name': fullName,
+        'phone': phone,
+      });
+    } on AuthException {
+      rethrow;
+    } on PostgrestException catch (e) {
+      throw AuthException(e.message);
+    } on AuthApiException catch (e) {
+      switch (e.code) {
+        case "email_exists":
+          throw AuthException("register_email_exists".tr());
+
+        case "weak_password":
+          throw AuthException("register_password_weak".tr());
+
+        case "invalid_credentials":
+          throw AuthException("register_invalid_credentials".tr());
+
+        default:
+          throw AuthException(e.message);
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:dalil_syria/core/errors/exceptions.dart';
 import 'package:dalil_syria/features/auth/domain/repositories/auth_repository.dart';
+import 'package:dalil_syria/features/auth/domain/usecases/register_usecase.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -18,6 +19,9 @@ final authRepositoryProvider = Provider((ref) {
 final loginUseCaseProvider = Provider((ref) {
   return LoginUseCase(ref.read(authRepositoryProvider));
 });
+final registerUseCaseProvider = Provider((ref) {
+  return RegisterUseCase(ref.read(authRepositoryProvider));
+});
 
 class AuthState {
   final bool isLoading;
@@ -34,8 +38,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository repo;
 
   final LoginUseCase loginUseCase;
+  final RegisterUseCase registerUseCase;
 
-  AuthNotifier(this.loginUseCase, this.repo) : super(AuthState());
+  AuthNotifier(this.loginUseCase, this.registerUseCase, this.repo)
+    : super(AuthState());
   bool isLoggedIn() {
     return repo.isLoggedIn();
   }
@@ -59,11 +65,43 @@ class AuthNotifier extends StateNotifier<AuthState> {
       return false;
     }
   }
+
+  Future<bool> register({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+  }) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      await registerUseCase(
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        password: password,
+      );
+
+      state = state.copyWith(isLoading: false);
+
+      return true;
+    } on AuthException catch (e) {
+      state = state.copyWith(isLoading: false, error: e.message);
+
+      return false;
+    } catch (_) {
+      state = state.copyWith(isLoading: false, error: "error_generic".tr());
+
+      return false;
+    }
+  }
 }
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final repo = ref.read(authRepositoryProvider);
   final usecase = ref.read(loginUseCaseProvider);
 
-  return AuthNotifier(usecase, repo);
+  final registerUseCase = ref.read(registerUseCaseProvider);
+
+  return AuthNotifier(usecase, registerUseCase, repo);
 });

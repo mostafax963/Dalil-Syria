@@ -142,6 +142,40 @@
 
   "lang_english": "English",
   "lang_arabic": "العربية",
+  "full_name": "الاسم الكامل",
+  "phone_namper":"رقم الهاتف",
+  "Create a strong password":"أنشئ كلمة مرور قوية",
+  "confirm_password":"تأكيد كلمة المرور",
+  "Already have an account?":"هل لديك حساب بالفعل؟",
+  "login_here":"سجل الدخول هنا",
+  "Welcome to Dalil Syria":"مرحباً بك في دليل سوريا",
+  "Create your account and start exploring":"أنشئ حسابك وابدأ الاستكشاف",
+  "I agree to the ":"أوافق على ",
+  "Terms of Service":"شروط الخدمة",
+  " and ":" و ",
+  "Privacy Policy":"سياسة الخصوصية",
+  "register_name_required":"الرجاء إدخال الاسم الكامل",
+"register_name_invalid":"أدخل الاسم الأول والأخير",
+
+"register_email_required":"الرجاء إدخال البريد الإلكتروني",
+"register_email_invalid":"البريد الإلكتروني غير صالح",
+
+"register_phone_required":"الرجاء إدخال رقم الهاتف",
+"register_phone_invalid":"رقم الهاتف غير صالح",
+
+"register_password_required":"الرجاء إدخال كلمة المرور",
+"register_password_short":"يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+
+"register_password_not_match":"كلمتا المرور غير متطابقتين",
+
+"register_accept_terms":"يجب الموافقة على الشروط وسياسة الخصوصية",
+
+"register_email_exists":"البريد الإلكتروني مستخدم مسبقاً",
+
+"register_password_weak":"كلمة المرور ضعيفة",
+
+"register_invalid_credentials":"بيانات غير صحيحة",
+"register_create_account": "إنشاء حساب",
 
   "error_generic": "حدث خطأ ما",
   "error_try_again": "حاول مجدداً"
